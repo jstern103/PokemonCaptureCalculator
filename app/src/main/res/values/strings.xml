@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">PokemonCaptureCalculator</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="placeholder">Under construction</string>
+    <string-array name="testing_pokemon">
+        <item>Bulbasaur</item>
+        <item>Caterpie</item>
+        <item>Pikachu</item>
+        <item>Mewtwo</item>
+    </string-array>
+    <string name="button_text">Calculate</string>
+    <string name="chance_placeholder">Nothing calculated yet</string>
 </resources>
