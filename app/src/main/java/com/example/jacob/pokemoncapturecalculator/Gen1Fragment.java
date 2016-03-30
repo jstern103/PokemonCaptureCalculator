@@ -43,7 +43,7 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         View view = (View) v.getParent();
         if (view != null) {
-            Spinner spinner = (Spinner) view.findViewById(R.id.gen1spinner);
+            Spinner spinner = (Spinner) view.findViewById(R.id.gen1species);
             String species = String.valueOf(spinner.getSelectedItem());
             Pokemon pokemon = new Pokemon();
             switch (species) {
@@ -64,12 +64,65 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
                     pokemon.captureRate = 3;
                     break;
                 default:
-                    Toast toast = Toast.makeText(v.getContext(), "Bad value returned by spinner", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(view.getContext(), "Bad value selected for species", Toast.LENGTH_SHORT);
                     toast.show();
                     break;
             }
+            spinner = (Spinner) view.findViewById(R.id.gen1status);
+            Status status;
+            String statusName = String.valueOf(spinner.getSelectedItem());
+            switch (statusName) {
+                case "None":
+                    status = Status.NONE;
+                    break;
+                case "Asleep":
+                    status = Status.SLEEP;
+                    break;
+                case "Burned":
+                    status = Status.BURN;
+                    break;
+                case "Frozen":
+                    status = Status.FROZEN;
+                    break;
+                case "Paralyzed":
+                    status = Status.PARALYZED;
+                    break;
+                case "Poisoned":
+                    status = Status.POISON;
+                    break;
+                default:
+                    Toast toast = Toast.makeText(view.getContext(), "Bad value selected for status", Toast.LENGTH_SHORT);
+                    toast.show();
+                    status = Status.NONE;
+                    break;
+            }
             pokemon.level = levelPicker.getValue();
-            double captureChance = chance(pokemon, PokeBall.POKE, Status.NONE, 1.0) * 100;
+            spinner = (Spinner) view.findViewById(R.id.gen1ball);
+            PokeBall ball;
+            String ballName = String.valueOf(spinner.getSelectedItem());
+            switch (ballName) {
+                case "Poké Ball":
+                    ball = PokeBall.POKE;
+                    break;
+                case "Great Ball":
+                    ball = PokeBall.GREAT;
+                    break;
+                case "Ultra Ball":
+                    ball = PokeBall.ULTRA;
+                    break;
+                case "Safari Ball":
+                    ball = PokeBall.SAFARI;
+                    break;
+                case "Master Ball":
+                    ball = PokeBall.MASTER;
+                    break;
+                default:
+                    Toast toast = Toast.makeText(view.getContext(), "Bad value selected for ball type", Toast.LENGTH_SHORT);
+                    toast.show();
+                    ball = PokeBall.POKE;
+                    break;
+            }
+            double captureChance = chance(pokemon, ball, status, 1.0) * 100;
             String text = String.format("You have a %.2f%% chance of success", captureChance);
             TextView textView = (TextView) view.findViewById(R.id.gen1text);
             textView.setText(text);

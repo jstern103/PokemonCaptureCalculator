@@ -1,37 +1,61 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/gen1spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:entries="@array/testing_pokemon" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <NumberPicker
-        android:id="@+id/gen1level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gen1spinner"
-        android:layout_centerHorizontal="true" />
+        <Spinner
+            android:id="@+id/gen1species"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:entries="@array/testing_pokemon" />
 
-    <TextView
-        android:id="@+id/gen1text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp"
-        android:text="@string/chance_placeholder" />
+        <NumberPicker
+            android:id="@+id/gen1level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1species"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/gen1submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/gen1text"
-        android:layout_centerHorizontal="true"
-        android:text="@string/button_text" />
+        <Spinner
+            android:id="@+id/gen1status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1level"
+            android:layout_centerHorizontal="true"
+            android:entries="@array/status" />
 
-</RelativeLayout>
+        <Spinner
+            android:id="@+id/gen1ball"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1status"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:entries="@array/gen_1_ball_list" />
+
+        <Button
+            android:id="@+id/gen1submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1ball"
+            android:layout_centerHorizontal="true"
+            android:text="@string/button_text" />
+
+        <TextView
+            android:id="@+id/gen1text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1submit"
+            android:layout_centerHorizontal="true"
+            android:padding="7dp"
+            android:text="@string/chance_placeholder" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

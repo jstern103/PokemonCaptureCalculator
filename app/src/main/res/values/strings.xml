@@ -9,6 +9,21 @@
         <item>Pikachu</item>
         <item>Mewtwo</item>
     </string-array>
+    <string-array name="status">
+        <item>None</item>
+        <item>Asleep</item>
+        <item>Burned</item>
+        <item>Frozen</item>
+        <item>Paralyzed</item>
+        <item>Poisoned</item>
+    </string-array>
+    <string-array name="gen_1_ball_list">
+        <item>Poké Ball</item>
+        <item>Great Ball</item>
+        <item>Ultra Ball</item>
+        <item>Safari Ball</item>
+        <item>Master Ball</item>
+    </string-array>
     <string name="button_text">Calculate</string>
     <string name="chance_placeholder">Nothing calculated yet</string>
 </resources>
