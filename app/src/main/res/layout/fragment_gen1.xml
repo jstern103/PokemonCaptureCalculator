@@ -36,6 +36,7 @@
             android:layout_below="@id/gen1status"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:entries="@array/gen_1_ball_list" />
 
         <Button
