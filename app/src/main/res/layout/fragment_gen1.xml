@@ -7,43 +7,101 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/gen1species_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="7dp"
+            android:text="@string/species_caption"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <Spinner
             android:id="@+id/gen1species"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/gen1species_caption"
             android:layout_centerHorizontal="true"
             android:entries="@array/testing_pokemon" />
+
+        <TextView
+            android:id="@+id/gen1level_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1species"
+            android:layout_centerHorizontal="true"
+            android:padding="7dp"
+            android:text="@string/level_caption"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <NumberPicker
             android:id="@+id/gen1level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gen1species"
+            android:layout_below="@id/gen1level_caption"
             android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/gen1status_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1level"
+            android:layout_centerHorizontal="true"
+            android:padding="7dp"
+            android:text="@string/status_caption"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
             android:id="@+id/gen1status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gen1level"
+            android:layout_below="@id/gen1status_caption"
             android:layout_centerHorizontal="true"
             android:entries="@array/status" />
+
+        <TextView
+            android:id="@+id/gen1ball_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1status"
+            android:layout_centerHorizontal="true"
+            android:padding="7dp"
+            android:text="@string/ball_caption"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
             android:id="@+id/gen1ball"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gen1status"
+            android:layout_below="@id/gen1ball_caption"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:entries="@array/gen_1_ball_list" />
+
+        <TextView
+            android:id="@+id/gen1hp_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1ball"
+            android:layout_centerHorizontal="true"
+            android:padding="7dp"
+            android:text="@string/hp_caption"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <SeekBar
+            android:id="@+id/gen1hp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gen1hp_caption"
+            android:layout_centerHorizontal="true"
+            android:max="100" />
 
         <Button
             android:id="@+id/gen1submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gen1ball"
+            android:layout_below="@id/gen1hp"
             android:layout_centerHorizontal="true"
             android:text="@string/button_text" />
 
@@ -55,7 +113,6 @@
             android:layout_centerHorizontal="true"
             android:padding="7dp"
             android:text="@string/chance_placeholder" />
-
 
     </RelativeLayout>
 

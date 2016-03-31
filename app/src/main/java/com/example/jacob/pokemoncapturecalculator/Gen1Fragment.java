@@ -1,6 +1,5 @@
 package com.example.jacob.pokemoncapturecalculator;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +18,8 @@ import android.widget.Toast;
  */
 public class Gen1Fragment extends Fragment implements View.OnClickListener {
 
-    private int level;
     private NumberPicker levelPicker;
+    private SeekBar hpPicker;
 
     public Gen1Fragment() {
         // Required empty public constructor
@@ -36,6 +36,7 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
         levelPicker.setMaxValue(100);
         levelPicker.setMinValue(1);
         levelPicker.setWrapSelectorWheel(false);
+        hpPicker = (SeekBar) view.findViewById(R.id.gen1hp);
         return view;
     }
 
@@ -122,7 +123,8 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
                     ball = PokeBall.POKE;
                     break;
             }
-            double captureChance = chance(pokemon, ball, status, 1.0) * 100;
+            double hp = hpPicker.getProgress() / 100.0;
+            double captureChance = chance(pokemon, ball, status, hp) * 100;
             String text = String.format("You have a %.2f%% chance of success", captureChance);
             TextView textView = (TextView) view.findViewById(R.id.gen1text);
             textView.setText(text);
@@ -130,19 +132,24 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * Calculates the chance of capturing a com.example.jacob.pokemoncapturecalculator.Pokemon in the first-generation games (Red, Blue, Yellow)
+     * Calculates the chance of capturing a Pokemon in the first-generation games (Red, Blue, Yellow)
      *
-     * @param pokemon    The target com.example.jacob.pokemoncapturecalculator.Pokemon, containing relevant information about the species
+     * @param pokemon    The target Pokemon, containing relevant information about the species
      * @param ball       The type of Poke Ball used
-     * @param status     The target com.example.jacob.pokemoncapturecalculator.Pokemon's current status condition, if any
-     * @param fractionHP The fraction of health the target com.example.jacob.pokemoncapturecalculator.Pokemon has left, ranging from 0 to 1
+     * @param status     The target Pokemon's current status condition, if any
+     * @param fractionHP The fraction of health the target Pokemon has left, ranging from 0 to 1
      * @return The final capture chance, ranging from 0 to 1
      */
     private double chance(Pokemon pokemon, PokeBall ball, Status status, double fractionHP) {
         if (ball == PokeBall.MASTER) return 1.0;
+
         double chance;
         int ballMod;
-        int maxHP = (((pokemon.baseHP + 8) * 2 * pokemon.level) / 100) + pokemon.level + 10;
+        int maxHP = 0;
+        for (int i = 0; i < 16; i++) {
+            maxHP += (((pokemon.baseHP + i) * 2 * pokemon.level) / 100) + pokemon.level + 10;
+        }
+        maxHP /= 16;
         int currentHP = (int) (fractionHP * maxHP);
         int hpFactor = maxHP * 255;
         switch (ball) {
