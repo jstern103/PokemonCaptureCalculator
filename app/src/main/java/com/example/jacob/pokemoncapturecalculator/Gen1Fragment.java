@@ -1,5 +1,9 @@
 package com.example.jacob.pokemoncapturecalculator;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -47,27 +51,20 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
             Spinner spinner = (Spinner) view.findViewById(R.id.gen1species);
             String species = String.valueOf(spinner.getSelectedItem());
             Pokemon pokemon = new Pokemon();
-            switch (species) {
-                case "Bulbasaur":
-                    pokemon.baseHP = 45;
-                    pokemon.captureRate = 45;
-                    break;
-                case "Caterpie":
-                    pokemon.baseHP = 45;
-                    pokemon.captureRate = 255;
-                    break;
-                case "Pikachu":
-                    pokemon.baseHP = 35;
-                    pokemon.captureRate = 190;
-                    break;
-                case "Mewtwo":
-                    pokemon.baseHP = 106;
-                    pokemon.captureRate = 3;
-                    break;
-                default:
-                    Toast toast = Toast.makeText(view.getContext(), "Bad value selected for species", Toast.LENGTH_SHORT);
-                    toast.show();
-                    break;
+            try {
+                SQLiteOpenHelper dbHelper = new PokemonDatabaseHelper(view.getContext());
+                SQLiteDatabase db = dbHelper.getReadableDatabase();
+                Cursor cursor = db.query("POKEMON", new String[]{"CAPTURE_RATE", "BASE_HP"},
+                        "SPECIES = ?", new String[]{species}, null, null, null);
+                if (cursor.moveToFirst()) {
+                    pokemon.captureRate = cursor.getInt(0);
+                    pokemon.baseHP = cursor.getInt(1);
+                }
+                cursor.close();
+                db.close();
+            } catch (SQLiteException e) {
+                Toast toast = Toast.makeText(view.getContext(), "Could not access database", Toast.LENGTH_SHORT);
+                toast.show();
             }
             spinner = (Spinner) view.findViewById(R.id.gen1status);
             Status status;
