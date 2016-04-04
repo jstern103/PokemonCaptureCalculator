@@ -41,6 +41,7 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
         levelPicker.setMinValue(1);
         levelPicker.setWrapSelectorWheel(false);
         hpPicker = (SeekBar) view.findViewById(R.id.gen1hp);
+        hpPicker.setProgress(100);
         return view;
     }
 
