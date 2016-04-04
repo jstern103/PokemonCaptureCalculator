@@ -9,12 +9,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 /**
@@ -36,6 +39,17 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_gen1, container, false);
         Button button = (Button) view.findViewById(R.id.gen1submit);
         button.setOnClickListener(this);
+        Spinner speciesPicker = (Spinner) view.findViewById(R.id.gen1species);
+        try {
+            PokemonDatabaseHelper dbHelper = new PokemonDatabaseHelper(view.getContext());
+            List<String> species = dbHelper.getAllLabels();
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, species);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            speciesPicker.setAdapter(adapter);
+        } catch (SQLiteException e) {
+            Toast toast = Toast.makeText(view.getContext(), "Could not access database", Toast.LENGTH_SHORT);
+            toast.show();
+        }
         levelPicker = (NumberPicker) view.findViewById(R.id.gen1level);
         levelPicker.setMaxValue(100);
         levelPicker.setMinValue(1);

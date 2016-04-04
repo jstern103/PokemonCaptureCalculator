@@ -2,8 +2,12 @@ package com.example.jacob.pokemoncapturecalculator;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,10 +24,10 @@ public class PokemonDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE POKEMON ("
-        + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        + "SPECIES TEXT, "
-        + "CAPTURE_RATE INTEGER, "
-        + "BASE_HP INTEGER);");
+                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "SPECIES TEXT, "
+                + "CAPTURE_RATE INTEGER, "
+                + "BASE_HP INTEGER);");
 
         insertPokemon(db, "Bulbasaur", 45, 45);
         insertPokemon(db, "Caterpie", 255, 45);
@@ -42,5 +46,21 @@ public class PokemonDatabaseHelper extends SQLiteOpenHelper {
         pokemonValues.put("CAPTURE_RATE", captureRate);
         pokemonValues.put("BASE_HP", baseHP);
         db.insert("POKEMON", null, pokemonValues);
+    }
+
+    public List<String> getAllLabels() {
+        List<String> labels = new ArrayList<>();
+        //String query = "SELECT SPECIES FROM POKEMON ORDER BY SPECIES ASC";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("POKEMON", new String[]{"SPECIES"}, null, null, null, null, "SPECIES ASC");
+        //Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return labels;
     }
 }

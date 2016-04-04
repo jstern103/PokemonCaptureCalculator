@@ -21,8 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gen1species_caption"
-            android:layout_centerHorizontal="true"
-            android:entries="@array/testing_pokemon" />
+            android:layout_centerHorizontal="true" />
+        <!--android:entries="@array/testing_pokemon" />-->
 
         <TextView
             android:id="@+id/gen1level_caption"
