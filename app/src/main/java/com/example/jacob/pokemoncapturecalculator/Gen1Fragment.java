@@ -70,7 +70,7 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
                 SQLiteOpenHelper dbHelper = new PokemonDatabaseHelper(view.getContext());
                 SQLiteDatabase db = dbHelper.getReadableDatabase();
                 Cursor cursor = db.query("POKEMON", new String[]{"CAPTURE_RATE", "BASE_HP"},
-                        "SPECIES = ?", new String[]{species}, null, null, null);
+                        "_id = ?", new String[]{species}, null, null, null);
                 if (cursor.moveToFirst()) {
                     pokemon.captureRate = cursor.getInt(0);
                     pokemon.baseHP = cursor.getInt(1);
