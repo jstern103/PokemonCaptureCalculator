@@ -1,7 +1,8 @@
 package com.example.jacob.pokemoncapturecalculator;
 
 /**
- * Created by Jacob on 1/20/2016.
+ * An enumerated type representing the kind of Poké Ball used
+ * Visually separated by generation of introduction for convenience
  */
 public enum PokeBall {
     POKE, GREAT, ULTRA, SAFARI, MASTER,

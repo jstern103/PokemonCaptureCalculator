@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,15 +29,17 @@ public class PokemonDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "pokemondb";
     private static final int DB_VERSION = 1;
     private static final String BASE_URL = "http://pokeapi.co/api/v2/";
+    private final Context context;
 
     PokemonDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE POKEMON ("
-                + "_id TEXT PRIMARY KEY, "
+                + "_id TEXT PRIMARY KEY, " // Let the species name be the primary key, since it should be unique
                 + "CAPTURE_RATE INTEGER, "
                 + "BASE_HP INTEGER);");
         readAPI(1, 151);
@@ -110,7 +112,7 @@ public class PokemonDatabaseHelper extends SQLiteOpenHelper {
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
-    private class APIContact extends AsyncTask<String, Void, String[]> {
+    private class APIContact extends AsyncTask<String, String, String[]> {
 
         private Pokemon pokemon;
         private String name;
@@ -142,6 +144,7 @@ public class PokemonDatabaseHelper extends SQLiteOpenHelper {
                             stringBuilder.append(line);
                         }
                         results[i] = stringBuilder.toString();
+                        publishProgress(params[0]);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -159,7 +162,7 @@ public class PokemonDatabaseHelper extends SQLiteOpenHelper {
 
         @Override
         protected void onPostExecute(String[] results) {
-            if (!results[0].equals("Unable to access API")) {
+            if ((results != null) && !results[0].equals("Unable to access API")) {
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(results[0]);
@@ -200,6 +203,13 @@ public class PokemonDatabaseHelper extends SQLiteOpenHelper {
                 insertPokemon(db, name, pokemon);
                 db.close();
             }
+        }
+
+        @Override
+        protected void onProgressUpdate(String... params) {
+            super.onProgressUpdate(params);
+            Toast toast = Toast.makeText(context, params[0], Toast.LENGTH_SHORT);
+            toast.show();
         }
 
     }

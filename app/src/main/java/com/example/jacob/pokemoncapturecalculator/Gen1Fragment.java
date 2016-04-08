@@ -28,11 +28,6 @@ public class Gen1Fragment extends Fragment implements View.OnClickListener {
     private NumberPicker levelPicker;
     private SeekBar hpPicker;
 
-    public Gen1Fragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
